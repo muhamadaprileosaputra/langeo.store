@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LANGEO STORE - Top Up FF Premium</title>
+    
+    <!-- Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. SETUP WARNA & VARIABEL --- */
+        :root {
+            --primary: #0ea5e9;       /* Biru Langit Cerah */
+            --primary-dark: #0284c7;  /* Biru Laut */
+            --bg-body: #f0f9ff;      /* Background sangat muda */
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --shadow-soft: 0 10px 40px -10px rgba(14, 165, 233, 0.15);
+            --shadow-hover: 0 20px 40px -10px rgba(14, 165, 233, 0.25);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-bottom: 100px; /* Space biar ga kepotong footer */
+        }
+
+        /* --- 2. HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--text-main); }
+
+        .wa-btn-header {
+            background: var(--primary);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+        }
+
+        /* --- 3. HERO SECTION --- */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 30px;
+            background: linear-gradient(180deg, #ffffff 0%, var(--bg-body) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+        
+        .hero h1 span { color: var(--primary); }
+
+        .hero p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; }
+
+        /* Search Bar Style */
+        .search-wrapper {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .search-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+
+        .search-wrapper i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        /* --- 4. PRODUCT GRID --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px 15px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD DESIGN (Lebih Bagus) */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 25px 15px;
+            text-align: center;
+            border: 1px solid #f1f5f9;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        /* Diamond Image Styling */
+        .card-img-container {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .card-img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(14, 165, 233, 0.3));
+            transition: transform 0.3s;
+        }
+
+        .card:hover .card-img { transform: scale(1.1) rotate(5deg); }
+
+        .dm-amount {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .price-tag {
+            background: #f0f9ff;
+            color: var(--primary-dark);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 6px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            font-size: 0.65rem;
+            padding: 4px 10px;
+            border-bottom-left-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* --- 5. MODAL FORM --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h3 {
+            color: var(--text-main);
+            font-size: 1.4rem;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .close-btn:hover { color: var(--primary-dark); }
+
+        .form-group { margin-bottom: 20px; text-align: left; }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: 0.2s;
+            background: #f8fafc;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            background: white;
+            outline: none;
+        }
+
+        .summary-card {
+            background: #f0f9ff;
+            border: 1px dashed var(--primary);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .summary-total { 
+            margin-top: 10px; 
+            padding-top: 10px; 
+            border-top: 1px solid rgba(0,0,0,0.05); 
+            font-weight: 800; 
+            color: var(--primary-dark); 
+            font-size: 1.1rem;
+        }
+
+        .btn-confirm {
+            width: 100%;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn-confirm:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes slideUp { from {transform: translateY(30px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card { padding: 15px 10px; }
+            .card-img { width: 50px; height: 50px; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-gem" style="color:var(--primary)"></i>
+            Langeo <span>Store</span>
+        </div>
+        <a href="https://wa.me/6285189826843" class="wa-btn-header">
+            <i class="fa-brands fa-whatsapp"></i> Chat Admin
+        </a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Top Up <span>Diamond</span> FF</h1>
+        <p>Proses Cepat • Aman • Harga Termurah</p>
+        
+        <div class="search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Cari nominal (contoh: 140)...">
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="grid" id="productGrid">
+            <!-- Items Loop Start -->
+            
+            <!-- 70 DM -->
+            <div class="card" onclick="openModal('70 DM', 16000)">
+                <div class="card-img-container">
+                    <!-- Gambar Diamond Lebih Bagus -->
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">70 DM</div>
+                <div class="price-tag">Rp 16.000</div>
+            </div>
+
+            <!-- 100 DM -->
+            <div class="card" onclick="openModal('100 DM', 20000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">100 DM</div>
+                <div class="price-tag">Rp 20.000</div>
+            </div>
+
+            <!-- 120 DM -->
+            <div class="card" onclick="openModal('120 DM', 23000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">120 DM</div>
+                <div class="price-tag">Rp 23.000</div>
+            </div>
+
+            <!-- 140 DM -->
+            <div class="card" onclick="openModal('140 DM', 25000)">
+                <div class="badge-popular">Hot</div>
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">140 DM</div>
+                <div class="price-tag">Rp 25.000</div>
+            </div>
+
+            <!-- 160 DM -->
+            <div class="card" onclick="openModal('160 DM', 29000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">160 DM</div>
+                <div class="price-tag">Rp 29.000</div>
+            </div>
+
+            <!-- 190 DM -->
+            <div class="card" onclick="openModal('190 DM', 31000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">190 DM</div>
+                <div class="price-tag">Rp 31.000</div>
+            </div>
+
+            <!-- 200 DM -->
+            <div class="card" onclick="openModal('200 DM', 33000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">200 DM</div>
+                <div class="price-tag">Rp 33.000</div>
+            </div>
+
+            <!-- 250 DM -->
+            <div class="card" onclick="openModal('250 DM', 40000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">250 DM</div>
+                <div class="price-tag">Rp 40.000</div>
+            </div>
+
+            <!-- 300 DM -->
+            <div class="card" onclick="openModal('300 DM', 50000)">
+                <div class="badge-popular">Best</div>
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">300 DM</div>
+                <div class="price-tag">Rp 50.000</div>
+            </div>
+
+            <!-- 355 DM -->
+            <div class="card" onclick="openModal('355 DM', 55000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">355 DM</div>
+                <div class="price-tag">Rp 55.000</div>
+            </div>
+
+            <!-- 375 DM -->
+            <div class="card" onclick="openModal('375 DM', 60000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">375 DM</div>
+                <div class="price-tag">Rp 60.000</div>
+            </div>
+
+            <!-- 475 DM -->
+            <div class="card" onclick="openModal('475 DM', 70000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">475 DM</div>
+                <div class="price-tag">Rp 70.000</div>
+            </div>
+
+            <!-- 500 DM -->
+            <div class="card" onclick="openModal('500 DM', 75000)">
+                <div class="badge-popular">Sale</div>
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">500 DM</div>
+                <div class="price-tag">Rp 75.000</div>
+            </div>
+
+            <!-- 510 DM -->
+            <div class="card" onclick="openModal('510 DM', 80000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">510 DM</div>
+                <div class="price-tag">Rp 80.000</div>
+            </div>
+
+            <!-- 565 DM -->
+            <div class="card" onclick="openModal('565 DM', 85000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">565 DM</div>
+                <div class="price-tag">Rp 85.000</div>
+            </div>
+
+            <!-- 635 DM -->
+            <div class="card" onclick="openModal('635 DM', 90000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">635 DM</div>
+                <div class="price-tag">Rp 90.000</div>
+            </div>
+
+            <!-- 720 DM -->
+            <div class="card" onclick="openModal('720 DM', 100000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">720 DM</div>
+                <div class="price-tag">Rp 100.000</div>
+            </div>
+
+            <!-- 770 DM -->
+            <div class="card" onclick="openModal('770 DM', 105000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">770 DM</div>
+                <div class="price-tag">Rp 105.000</div>
+            </div>
+
+            <!-- 800 DM -->
+            <div class="card" onclick="openModal('800 DM', 110000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">800 DM</div>
+                <div class="price-tag">Rp 110.000</div>
+            </div>
+
+            <!-- 860 DM -->
+            <div class="card" onclick="openModal('860 DM', 120000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">860 DM</div>
+                <div class="price-tag">Rp 120.000</div>
+            </div>
+
+            <!-- 930 DM -->
+            <div class="card" onclick="openModal('930 DM', 125000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">930 DM</div>
+                <div class="price-tag">Rp 125.000</div>
+            </div>
+
+            <!-- 1000 DM -->
+            <div class="card" onclick="openModal('1000 DM', 135000)">
+                <div class="badge-popular">Sultan</div>
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">1000 DM</div>
+                <div class="price-tag">Rp 135.000</div>
+            </div>
+
+            <!-- 1080 DM -->
+            <div class="card" onclick="openModal('1080 DM', 150000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">1080 DM</div>
+                <div class="price-tag">Rp 150.000</div>
+            </div>
+
+            <!-- 1450 DM -->
+            <div class="card" onclick="openModal('1450 DM', 200000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">1450 DM</div>
+                <div class="price-tag">Rp 200.000</div>
+            </div>
+
+            <!-- 2200 DM -->
+            <div class="card" onclick="openModal('2200 DM', 300000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">2200 DM</div>
+                <div class="price-tag">Rp 300.000</div>
+            </div>
+
+            <!-- 2350 DM -->
+            <div class="card" onclick="openModal('2350 DM', 320000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">2350 DM</div>
+                <div class="price-tag">Rp 320.000</div>
+            </div>
+
+            <!-- 2720 DM -->
+            <div class="card" onclick="openModal('2720 DM', 370000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">2720 DM</div>
+                <div class="price-tag">Rp 370.000</div>
+            </div>
+
+            <!-- 3640 DM -->
+            <div class="card" onclick="openModal('3640 DM', 490000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">3640 DM</div>
+                <div class="price-tag">Rp 490.000</div>
+            </div>
+
+            <!-- 4000 DM -->
+            <div class="card" onclick="openModal('4000 DM', 530000)">
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">4000 DM</div>
+                <div class="price-tag">Rp 530.000</div>
+            </div>
+
+            <!-- 7290 DM -->
+            <div class="card" onclick="openModal('7290 DM', 930000)">
+                <div class="badge-popular">Max</div>
+                <div class="card-img-container">
+                    <img src="https://cdn-icons-png.flaticon.com/512/806/806652.png" class="card-img" alt="Diamond">
+                </div>
+                <div class="dm-amount">7290 DM</div>
+                <div class="price-tag">Rp 930.000</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORM (POPUP) -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-header">
+                <i class="fa-solid fa-cart-shopping" style="font-size: 2rem; color: var(--primary);"></i>
+                <h3>Detail Pesanan</h3>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-row">
+                    <span>Item:</span>
+                    <strong id="modalItemName">70 DM</strong>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total Bayar:</span>
+                    <span id="modalItemPrice">Rp 16.000</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">ID Player</label>
+                <input type="number" id="playerId" class="form-input" placeholder="Contoh: 12345678">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nickname</label>
+                <input type="text" id="nickname" class="form-input" placeholder="Contoh: ProPlayer">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Metode Pembayaran</label>
+                <select id="paymentMethod" class="form-input">
+                    <option value="DANA">DANA</option>
+                    <option value="GoPay">GoPay</option>
+                    <option value="BAYAR LANGSUNG">BAYAR LANGSUNG (COD)</option>
+                    <option value="QRIS">QRIS (Scan Barcode)</option>
+                </select>
+            </div>
+
+            <button class="btn-confirm" onclick="submitOrder()">
+                <i class="fa-brands fa-whatsapp"></i> Kirim ke WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 1. Nomor WA Baru
+        const storeWA = "6285189826843";
+        
+        let currentItemName = "";
+        let currentItemPrice = 0;
+
+        // 2. Fungsi Buka Modal
+        function openModal(itemName, price) {
+            currentItemName = itemName;
+            currentItemPrice = price;
+
+            document.getElementById('modalItemName').innerText = itemName;
+            document.getElementById('modalItemPrice').innerText = "Rp " + price.toLocaleString('id-ID');
+            document.getElementById('orderModal').style.display = "flex";
+        }
+
+        // 3. Fungsi Tutup Modal
+        function closeModal() {
+            document.getElementById('orderModal').style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // 4. Fungsi Submit
+        function submitOrder() {
+            const playerId = document.getElementById('playerId').value;
+            const nickname = document.getElementById('nickname').value;
+            const payment = document.getElementById('paymentMethod').value;
+
+            if (!playerId || !nickname) {
+                alert("Mohon lengkapi ID Player dan Nickname!");
+                return;
+            }
+
+            const message = `Halo Langeo Store, saya mau Top Up Diamond FF:%0A` +
+                            `----------------------------%0A` +
+                            `💎 Item: *${currentItemName}*%0A` +
+                            `💰 Harga: *Rp ${currentItemPrice.toLocaleString('id-ID')}*%0A` +
+                            `----------------------------%0A` +
+                            `🆔 ID Player: ${playerId}%0A` +
+                            `👤 Nickname: ${nickname}%0A` +
+                            `💳 Metode Bayar: ${payment}%0A` +
+                            `----------------------------%0A` +
+                            `Mohon segera diproses ya min!`;
+
+            const url = `https://wa.me/${storeWA}?text=${message}`;
+            window.open(url, '_blank');
+            closeModal();
+            
+            // Reset Form
+            document.getElementById('playerId').value = "";
+            document.getElementById('nickname').value = "";
+        }
+
+        // 5. Fitur Search
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('keyup', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(term)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
